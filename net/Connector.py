@@ -3,12 +3,14 @@ This file defines how the connection betwen the pairs is done. It searches for
 other pong games inside the network.
 """
 
-from netaddr import *
-import pprint
+import socket
+
+port = 5894
 
 class Connector:
 
     def __init__(self):
+        self.sock = None
         print("Creating Connector")
 
 
@@ -17,7 +19,17 @@ class Connector:
 
     
     def searchPair(self):
-        for ip in IPNetwork('10.0.2.15/24').iter_hosts():
-            print('%s' % ip)
-        return "192.168.1.13"
+        print("Searching for pairs inside the network")
+        for ip in range(1, 253):
+            print("trying with "+str(ip))
+            self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            result = self.sock.connect_ex(('10.0.2.'+str(ip), port))
+            if result == 0:
+                print("open")
+            self.sock.close()
+        return ""
 
+
+
+obj = Connector()
+obj.searchPair()
