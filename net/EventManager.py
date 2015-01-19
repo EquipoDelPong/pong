@@ -6,4 +6,10 @@ We need define the network package to be sent through a socket
 """
 
 
+class EventManager:
 
+    def __init__(self):
+        print('Creating event manager')
+
+
+a = EventManager()
