@@ -20,7 +20,7 @@ class Client():
             print("Connection initialized with "+str(ip))
             self.connect = True
         except:
-            print("I could't connect with the server in "+str(ip))
+            print("I couldn't connected with the server in "+str(ip))
 
     def Send(self, msg):
         self.socket.send(str(msg))
