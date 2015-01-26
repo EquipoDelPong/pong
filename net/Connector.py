@@ -4,20 +4,27 @@ other pong games inside the network.
 """
 
 import socket
-
-port = 5894
+from Server import *
+from Client import *
+from net import *
 
 class Connector:
 
     def __init__(self):
-        self.sock = None
+        self.server = None
+        self.client = None
         print("Creating Connector")
 
 
-    def connect(self):
+    def connect(self, ip):
+        self.client = Client()
         self.__status = "CONECTED"
 
-    
+    def waitConnection(self):
+        self.server = Server(getLocalIp(), PORT)
+        
+
+    #not implemented yet *** ERROR *** 
     def searchPair(self):
         print("Searching for pairs inside the network")
         for ip in range(1, 253):
@@ -29,6 +36,13 @@ class Connector:
             self.sock.close()
         return ""
 
+
+    #it's usefull to know my local ip, I didn't found a simplest and clearest
+    #way, but for the game is very usefull
+    def getLocalIp():
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(('google.com', 0))
+        return str(s.getsockname()[0])
 
 
 obj = Connector()
